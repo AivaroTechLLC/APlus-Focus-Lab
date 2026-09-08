@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Independent CompTIA A+ 220-1201 and 220-1202 V15 practice test app with weighted objectives, study mode, exam mode, and local progress tracking.">
+  <title>A+ Focus Lab — 220-1201 / 220-1202 Practice</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <div>
+        <p class="eyebrow">Independent study tool</p>
+        <h1>A+ Focus Lab</h1>
+        <p class="subtitle">220-1201 &amp; 220-1202 V15 practice — short sessions, objective-weighted exams, and weak-area review.</p>
+      </div>
+      <button id="themeToggle" class="ghost small" type="button" aria-label="Toggle dark mode">Dark mode</button>
+    </div>
+  </header>
+  <nav class="tabs wrap" aria-label="App sections">
+    <button class="tab active" type="button" data-view="practice">Practice</button>
+    <button class="tab" type="button" data-view="progress">Progress</button>
+    <button class="tab" type="button" data-view="resources">Resources</button>
+  </nav>
+  <main class="wrap">
+    <section id="practiceView" class="view active">
+      <div id="launcher" class="panel launcher">
+        <div class="launcher-copy"><p class="kicker">Start small. Finish the block.</p><h2>Build a session</h2><p>Quick 10 is the default on purpose. Full 90-question sessions use the official domain percentages as closely as whole questions allow.</p></div>
+        <form id="launchForm" class="config-grid">
+          <label>Exam<select id="examSelect"><option value="1201">Core 1 — 220-1201</option><option value="1202">Core 2 — 220-1202</option><option value="mixed">Mixed review</option></select></label>
+          <label>Session<select id="lengthSelect"><option value="10">Quick 10</option><option value="20">Focused 20</option><option value="50">Deep 50</option><option value="90">Full 90</option></select></label>
+          <label>Mode<select id="modeSelect"><option value="study">Study — feedback after each question</option><option value="exam">Exam — feedback at the end</option></select></label>
+          <label>Domain<select id="domainSelect"><option value="all">All domains — official weighting</option></select></label>
+          <label class="check-row"><input id="weakOnly" type="checkbox"><span>Prioritize my weaker domains</span></label>
+          <label class="check-row"><input id="timerToggle" type="checkbox" checked><span>Use timer (90 minutes for Full 90; proportional for shorter sessions)</span></label>
+          <div class="launch-actions"><button class="primary" type="submit">Start session</button><button id="continueBtn" class="ghost" type="button" hidden>Continue unfinished session</button></div>
+        </form>
+        <div class="weight-note" id="weightNote"></div>
+      </div>
+      <section id="quiz" class="quiz" hidden aria-live="polite">
+        <div class="quiz-topbar"><div class="progress-meta"><span id="questionCounter">Question 1 of 10</span><span id="timer" class="timer">10:00</span></div><div class="progress-track" aria-hidden="true"><div id="progressBar" class="progress-fill"></div></div><div class="quiz-tags"><span id="examBadge" class="badge"></span><span id="domainBadge" class="badge muted"></span><span id="objectiveBadge" class="badge muted"></span></div></div>
+        <article class="question-card"><div class="question-heading"><span id="questionType" class="question-type"></span><button id="flagBtn" type="button" class="ghost small">☆ Flag</button></div><h2 id="questionPrompt"></h2><p id="questionHint" class="hint" hidden></p><div id="answerArea" class="answers"></div><p id="validationMsg" class="validation" role="alert"></p><div id="feedback" class="feedback" hidden></div><div class="question-actions"><button id="submitAnswerBtn" class="primary" type="button">Check answer</button><button id="nextBtn" class="primary" type="button" hidden>Next</button><button id="quitBtn" class="ghost" type="button">End session</button></div><p class="shortcut-note">Keyboard: 1–4 choose • Enter checks/continues • F flags.</p></article>
+      </section>
+      <section id="results" class="panel results" hidden><p class="kicker">Session complete</p><h2 id="resultTitle">Results</h2><div class="score-row"><div class="score-ring" id="scoreRing"><strong id="scorePct">0%</strong><span>accuracy</span></div><div><p id="scoreSummary" class="score-summary"></p><p class="smallprint">Practice percentage is not a CompTIA scaled score and does not predict an official pass/fail result.</p></div></div><div id="domainBreakdown" class="breakdown"></div><div class="result-actions"><button id="reviewMissedBtn" class="primary" type="button">Review missed</button><button id="newSessionBtn" class="ghost" type="button">New session</button></div><div id="reviewList" class="review-list"></div></section>
+    </section>
+    <section id="progressView" class="view" hidden><div class="panel"><p class="kicker">Stored only in this browser</p><h2>Your progress</h2><p>Accuracy is tracked by domain so weak-area drills can bias future sessions. Nothing is uploaded anywhere.</p><div id="progressSummary" class="stat-grid"></div><div id="progressDomains" class="progress-domains"></div><button id="resetProgressBtn" class="danger" type="button">Reset all local progress</button></div></section>
+    <section id="resourcesView" class="view" hidden><div class="panel resources"><p class="kicker">Verify, cross-check, go deeper</p><h2>Study resources used to shape this app</h2><p>The questions in this app are original. These sources were used for the official blueprint and useful practice-test formats.</p><div class="resource-grid"><a href="https://lecbyo.files.cmp.optimizely.com/download/34be017cb73211ef8985a6f347fbf652" target="_blank" rel="noopener"><strong>Official 220-1201 V15 objectives</strong><span>CompTIA Core 1 blueprint and domain weights.</span></a><a href="https://lecbyo.files.cmp.optimizely.com/download/cefedfb2b8a511ef809306d06d323538" target="_blank" rel="noopener"><strong>Official 220-1202 V15 objectives</strong><span>CompTIA Core 2 blueprint and domain weights.</span></a><a href="https://www.professormesser.com/" target="_blank" rel="noopener"><strong>Professor Messer</strong><span>Current 1201/1202 study resources.</span></a><a href="https://www.examcompass.com/comptia/a-plus-certification/free-a-plus-practice-tests" target="_blank" rel="noopener"><strong>ExamCompass</strong><span>Free topic-specific practice tests.</span></a><a href="https://crucialexams.com/exams/comptia/a/220-1201/practice-tests-practice-questions" target="_blank" rel="noopener"><strong>Crucial Exams</strong><span>Objective filters and timed practice.</span></a><a href="https://uniontestprep.com/comptia-a-core-series-exam/practice-test" target="_blank" rel="noopener"><strong>Union Test Prep</strong><span>Scenario-heavy free review.</span></a></div><aside class="callout"><strong>Exam-security note:</strong> avoid brain-dump sites claiming to reproduce live CompTIA questions.</aside></div></section>
+  </main>
+  <footer class="wrap footer"><p>A+ Focus Lab is an independent study project and is not affiliated with or endorsed by CompTIA.</p></footer>
+  <script src="questions.js"></script><script src="app.js"></script>
+</body></html>
